@@ -1,6 +1,7 @@
 import React from 'react';
+import Total from './Total';
 
-const AddItem = ({products, selectQuantity, selectProduct}) => {
+const AddItem = ({products, selectQuantity, selectProduct, priceTotal}) => {
    
     const selectProducts = (arr) => {
         return (arr.map(item => {
@@ -22,7 +23,7 @@ const AddItem = ({products, selectQuantity, selectProduct}) => {
                 {selectProducts(products)}
             </select><br></br>
             
-            <button>Submit</button>
+            <button onClick={priceTotal}>Submit</button>
             
             
         </div>

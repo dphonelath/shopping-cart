@@ -5,6 +5,7 @@ import CartFooter from './components/CartFooter';
 import CartItems from './components/CartItems';
 // import CartItem from './components/CartItemsComponent';
 import AddItem from './components/AddItem';
+import Total from './components/Total';
 
 class App extends Component {
 
@@ -33,14 +34,22 @@ class App extends Component {
         quantity: 0, 
     };
 
-    formSubmit = () => {
-        
+    
+    priceTotal= (e) => {
+      let price = this.state.cartItemsList
+      let quantity = this.state.cartItemsList[0].quantity
+      for(let i =0; i < this.state.cartItemsList.length; i++){
+        return (this.state.cartItemsList[i].product.priceInCents)*(this.state.cartItemsList[i].quantity)
+      }
+
+      let total = (price*quantity)
+      console.log(total)
     }
 
+
+
     selectProduct = (e) => {
-      console.log(e.target.value)
       let product = this.state.products.filter(item => e.target.value === item.name)
-      console.log(product)
       this.setState({
         product: {
           id: product[0].id,
@@ -68,8 +77,12 @@ class App extends Component {
         <div>
           <CartItems cartItemsList = {this.state.cartItemsList} />
         </div>
-        
-          <AddItem products = {this.state.products} formSubmit = {this.formSubmit} selectQuantity = {this.selectQuantity} selectProduct = {this.selectProduct}/>
+        <div>
+          <Total name="totalPrice" priceTotal= {this.priceTotal} /> 
+        </div>
+        <div>
+          <AddItem products = {this.state.products} formSubmit = {this.formSubmit} selectQuantity = {this.selectQuantity} selectProduct = {this.selectProduct} priceTotal={this.priceTotal}/>
+        </div>
         <div>
           <CartFooter copyright= '&copy;' copyYear={'2018'} />
         </div>
