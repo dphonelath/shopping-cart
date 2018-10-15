@@ -1,12 +1,29 @@
 import React from 'react';
 
-const AddItem = ({products}) => {
+const AddItem = ({products, selectQuantity, selectProduct}) => {
+   
+    const selectProducts = (arr) => {
+        return (arr.map(item => {
+            return (
+                <option>{item.name}</option>
+            )
+        }
+        ))
+    }
+
     return (
-        <div className="list-group-item">
+        <div className="list-item">
             <form>
             Quantity: 
-            <input type="number" name="quantity" min= "0"></input>
+            <input type="number" onChange={selectQuantity} name="quantity" min= "1"></input>
             </form>
+            Products:
+            <select onChange= {selectProduct} name= "products"> 
+                {selectProducts(products)}
+            </select><br></br>
+            
+            <button>Submit</button>
+            
             
         </div>
     )

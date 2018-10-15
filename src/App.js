@@ -24,10 +24,42 @@ class App extends Component {
         { id: 46, name: 'Intelligent Leather Clock', priceInCents: 2999 },
         { id: 47, name: 'Ergonomic Bronze Lamp', priceInCents: 40000 },
         { id: 48, name: 'Awesome Leather Shoes', priceInCents: 3990 },
-      ]
+      ],
+        product: {
+          id: null,
+          name: '',
+          priceInCents: null,
+        },
+        quantity: 0, 
     };
 
+    formSubmit = () => {
+        
+    }
+
+    selectProduct = (e) => {
+      console.log(e.target.value)
+      let product = this.state.products.filter(item => e.target.value === item.name)
+      console.log(product)
+      this.setState({
+        product: {
+          id: product[0].id,
+          name: e.target.value,
+          priceInCents: ((product[0].priceInCents)/100)*this.state.quantity
+        }
+      })
+    }
+
+    selectQuantity = (e) => {
+      console.log(e.target.value);
+      this.setState({
+        quantity: Number(e.target.value)
+          
+      });
+    }
   render() {
+
+
     return (
       <div className="App">
         <header className="App-header">
@@ -37,7 +69,7 @@ class App extends Component {
           <CartItems cartItemsList = {this.state.cartItemsList} />
         </div>
         
-          <AddItem />
+          <AddItem products = {this.state.products} formSubmit = {this.formSubmit} selectQuantity = {this.selectQuantity} selectProduct = {this.selectProduct}/>
         <div>
           <CartFooter copyright= '&copy;' copyYear={'2018'} />
         </div>
