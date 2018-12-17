@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import '../App.css';
 
 class Total extends Component {
     render(){
         return(
-            <p>Total Price: ({this.props.priceTotal})</p>
+            <h3 className= "total-price">Total Price: ({this.props.priceTotal.toFixed(2)})</h3>
         );
     }
 }

@@ -34,19 +34,35 @@ class App extends Component {
         quantity: 0, 
     };
 
-    
+   
     priceTotal= (e) => {
-      let price = this.state.cartItemsList
-      let quantity = this.state.cartItemsList[0].quantity
-      for(let i =0; i < this.state.cartItemsList.length; i++){
-        return (this.state.cartItemsList[i].product.priceInCents)*(this.state.cartItemsList[i].quantity)
-      }
 
-      let total = (price*quantity)
-      console.log(total)
+      let result = 0
+      // work on this for loop
+      for(let i =0; i < this.state.cartItemsList.length; i++){
+
+        let price = this.state.cartItemsList[i].product.priceInCents
+        let quantity = this.state.cartItemsList[i].quantity
+
+        result += (this.state.cartItemsList[i].product.priceInCents)*(this.state.cartItemsList[i].quantity)    
+        console.log('price',price)
+        console.log('quantity',quantity)
+      }
+      return result 
     }
 
-
+    concatItem = (e) => {
+      e.preventDefault()
+      let product = this.state.product;
+      let cart = this.state.cartItemsList;
+      let cartItem = {  
+          id: cart.length+1,
+          product: product,
+          quantity: this.state.quantity
+      }
+      let newCart= cart.concat(cartItem)
+      this.setState({cartItemsList: newCart})
+    }
 
     selectProduct = (e) => {
       let product = this.state.products.filter(item => e.target.value === item.name)
@@ -54,10 +70,10 @@ class App extends Component {
         product: {
           id: product[0].id,
           name: e.target.value,
-          priceInCents: ((product[0].priceInCents)/100)*this.state.quantity
-        }
-      })
+          priceInCents: product[0].priceInCents
+      }})
     }
+  
 
     selectQuantity = (e) => {
       console.log(e.target.value);
@@ -66,22 +82,25 @@ class App extends Component {
           
       });
     }
-  render() {
 
+  render() {
+    const priceTotal= this.priceTotal()
 
     return (
       <div className="App">
         <header className="App-header">
           <CartHeader />
         </header>
-        <div>
           <CartItems cartItemsList = {this.state.cartItemsList} />
-        </div>
+          <Total name="totalPrice" priceTotal= {priceTotal} /> 
         <div>
-          <Total name="totalPrice" priceTotal= {this.priceTotal} /> 
-        </div>
-        <div>
-          <AddItem products = {this.state.products} formSubmit = {this.formSubmit} selectQuantity = {this.selectQuantity} selectProduct = {this.selectProduct} priceTotal={this.priceTotal}/>
+          <AddItem 
+              products = {this.state.products} 
+              formSubmit = {this.formSubmit} 
+              selectQuantity = {this.selectQuantity} 
+              selectProduct = {this.selectProduct} 
+              priceTotal={this.priceTotal} 
+              concatItem= {this.concatItem}/>
         </div>
         <div>
           <CartFooter copyright= '&copy;' copyYear={'2018'} />

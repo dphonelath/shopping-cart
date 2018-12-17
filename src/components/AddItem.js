@@ -1,8 +1,9 @@
 import React from 'react';
 import Total from './Total';
+import '../App.css'
 
-const AddItem = ({products, selectQuantity, selectProduct, priceTotal}) => {
-   
+const AddItem = ({products, selectQuantity, selectProduct, priceTotal, concatItem}) => {
+
     const selectProducts = (arr) => {
         return (arr.map(item => {
             return (
@@ -14,18 +15,15 @@ const AddItem = ({products, selectQuantity, selectProduct, priceTotal}) => {
 
     return (
         <div className="list-item">
-            <form>
-            Quantity: 
-            <input type="number" onChange={selectQuantity} name="quantity" min= "1"></input>
-            </form>
-            Products:
-            <select onChange= {selectProduct} name= "products"> 
-                {selectProducts(products)}
+            <form onSubmit={concatItem} >
+                Quantity: 
+                <input type="number" onChange={selectQuantity} name="quantity" min= "1"></input><br></br>
+                Products:
+                <select onChange= {selectProduct} placeholder="Please Select Product" name= "products"> 
+                    {selectProducts(products)}
             </select><br></br>
-            
-            <button onClick={priceTotal}>Submit</button>
-            
-            
+                <button type="submit">Submit</button>
+            </form>
         </div>
     )
 }
