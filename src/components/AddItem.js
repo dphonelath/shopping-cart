@@ -20,6 +20,7 @@ const AddItem = ({products, selectQuantity, selectProduct, priceTotal, concatIte
                 <input type="number" onChange={selectQuantity} name="quantity" min= "1"></input><br></br>
                 Products:
                 <select onChange= {selectProduct} placeholder="Please Select Product" name= "products"> 
+                    <option disabled selected>Please Select Product</option>
                     {selectProducts(products)}
             </select><br></br>
                 <button type="submit">Submit</button>

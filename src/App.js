@@ -34,7 +34,7 @@ class App extends Component {
         quantity: 0, 
     };
 
-   
+  
     priceTotal= (e) => {
 
       let result = 0
@@ -45,8 +45,6 @@ class App extends Component {
         let quantity = this.state.cartItemsList[i].quantity
 
         result += (this.state.cartItemsList[i].product.priceInCents)*(this.state.cartItemsList[i].quantity)    
-        console.log('price',price)
-        console.log('quantity',quantity)
       }
       return result 
     }
@@ -55,13 +53,18 @@ class App extends Component {
       e.preventDefault()
       let product = this.state.product;
       let cart = this.state.cartItemsList;
-      let cartItem = {  
-          id: cart.length+1,
-          product: product,
-          quantity: this.state.quantity
+      let quantity = this.state.quantity
+
+      console.log("product", product)
+      if(product.id !== null && quantity > 0){
+        let cartItem = {  
+            id: cart.length+1,
+            product: product,
+            quantity: this.state.quantity
+        }
+        let newCart= cart.concat(cartItem)
+        this.setState({cartItemsList: newCart})
       }
-      let newCart= cart.concat(cartItem)
-      this.setState({cartItemsList: newCart})
     }
 
     selectProduct = (e) => {
