@@ -54,8 +54,6 @@ class App extends Component {
       let product = this.state.product;
       let cart = this.state.cartItemsList;
       let quantity = this.state.quantity
-
-      console.log("product", product)
       if(product.id !== null && quantity > 0){
         let cartItem = {  
             id: cart.length+1,
@@ -79,7 +77,6 @@ class App extends Component {
   
 
     selectQuantity = (e) => {
-      console.log(e.target.value);
       this.setState({
         quantity: Number(e.target.value)
           
